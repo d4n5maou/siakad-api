@@ -2,25 +2,26 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("JadwalMatkuls", {
+    await queryInterface.createTable("MahasiswaBimbingans", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      id_matkul: {
+      id_mahasiswa: {
         type: Sequelize.INTEGER,
         references: {
-          model: "MataKuliahs",
+          model: "Mahasiswas",
           key: "id",
         },
       },
-      hari: {
-        type: Sequelize.STRING,
-      },
-      jam: {
-        type: Sequelize.STRING,
+      id_dosen: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Dosens",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("JadwalMatkuls");
+    await queryInterface.dropTable("MahasiswaBimbingans");
   },
 };

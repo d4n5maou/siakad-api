@@ -32,10 +32,15 @@ jadwalMatkulController.create = async (req, res) => {
 
 jadwalMatkulController.getAll = async (req, res) => {
   try {
-    const getJadwalMatkul = await JadwalMatkul.findAll({
-      order: [["hari", "DESC"]],
+    const getJadwalMatkul = await MataKuliah.findAll({
+      include: [
+        {
+          model: JadwalMatkul,
+        },
+      ],
     });
-    return res.status(200).json({
+
+    res.status(200).json({
       data: getJadwalMatkul,
     });
   } catch (error) {
@@ -48,12 +53,6 @@ jadwalMatkulController.getAll = async (req, res) => {
 jadwalMatkulController.getById = async (req, res) => {
   const { id } = req.params;
   try {
-    // const getMatkul = await MataKuliah.findOne({
-    //   where: {
-    //     id: id,
-    //   },
-    // });
-    // return res.json({ data: getMatkul.id });
     const getJadwalMatkulById = await JadwalMatkul.findOne({
       where: {
         id_matkul: id,

@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
         through: "DosenMatkul",
         foreignKey: "id_matkul",
       });
+      MataKuliah.hasMany(models.JadwalMatkul, {
+        foreignKey: "id_matkul",
+      });
     }
   }
   MataKuliah.init(

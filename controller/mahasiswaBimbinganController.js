@@ -1,4 +1,5 @@
-const { MahasiswaBimbingan } = require("../models");
+const { MahasiswaBimbingan, Mahasiswa, Dosen } = require("../models");
+const dosen = require("../models/dosen");
 
 const mahasiswaBimbinganController = {};
 
@@ -31,9 +32,16 @@ mahasiswaBimbinganController.create = async (req, res) => {
 
 mahasiswaBimbinganController.getAll = async (req, res) => {
   try {
-    const getMahasiswaBimbingan = await MahasiswaBimbingan.findAll();
-    return res.status(200).json({
-      data: getMahasiswaBimbingan,
+    const getMhsBim = await Dosen.findAll({
+      include: [
+        {
+          model: Mahasiswa,
+        },
+      ],
+    });
+
+    res.status(200).json({
+      data: getMhsBim,
     });
   } catch (error) {
     return res.status(500).json({
